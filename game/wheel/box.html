@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>돌려돌려돌림판 ver2.0</title>
+	<script src="./js/jquery-2.2.4.js"></script>
+	<style>
+		body { background: #eee; }
+		div { position: fixed; top: 50%; left: 50%; margin-top: -150px; margin-left: -150px; width: 300px; height: 300px; border: 1px dotted brown; transform-origin: 0 100%; }
+
+		.box01 { transform:; border-color: orange;}
+		.box01 .dot { background: orange; }
+		.box02 { transform: skew( -15deg ); border-color: red; }
+		.box02 .dot { transform: skew( 15deg ); background: red; }
+		.box03 { transform: skew( -30deg ); border-color: brown; }
+		.box03 .dot { transform: skew( 30deg ); background: brown; }
+		.box04 { transform: skew( -45deg ); border-color: blue; }
+		.box04 .dot { transform: skew( 45deg ); background: blue; }
+		.box05 { transform: skew( -60deg ); border-color: pink; }
+		.box05 .dot { transform: skew( 60deg ); background: pink; }
+		.box06 { transform: skew( -75deg ); border-color: green; }
+		.box06 .dot { transform: skew( 75deg ); background: green; }
+
+		.dot { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: red; }
+
+	</style>
+</head>
+<body>
+	<div class="box01">
+		<span class="dot">1</span>
+	</div>
+	<div class="box02">
+		<span class="dot">2</span>
+	</div>
+	<div class="box03">
+		<span class="dot">3</span>
+	</div>
+	<div class="box04">
+		<span class="dot">4</span>
+	</div>
+	<div class="box05">
+		<span class="dot">5</span>
+	</div>
+	<div class="box06">
+		<span class="dot">6</span>
+	</div>
+
+	<script>
+		$(function(){
+			var angle = [90, 75, 60, 45, 30, 15];
+				angle2 = [90, 82.5, 75, 67.5, 60, 52.5];
+
+			// 1rad = 180/pi * (  )
+
+			function degToRad(degree){
+				var PI = Math.PI;
+				return degree * ( PI / 180 );
+			}
+
+			
+			console.log( degToRad( angle[0] / 2 ));
+			console.log( angle[0] / 2 );
+
+
+			$('.box01 .dot').css({'bottom': Math.abs( Math.sin( degToRad( angle[0] / 2 ) ) ) * 250 ,'left': Math.abs( Math.cos( degToRad( angle2[0] / 2 ) ) ) * 250 });
+			$('.box02 .dot').css({'bottom': Math.abs( Math.sin( degToRad( angle[1] / 2 ) ) ) * 250 ,'left': Math.abs( Math.cos( degToRad( angle2[1] / 2 ) ) ) * 250 });
+			$('.box03 .dot').css({'bottom': Math.abs( Math.sin( degToRad( angle[2] / 2 ) ) ) * 250 ,'left': Math.abs( Math.cos( degToRad( angle2[2] / 2 ) ) ) * 250 });
+			$('.box04 .dot').css({'bottom': Math.abs( Math.sin( degToRad( angle[3] / 2 ) ) ) * 250 ,'left': Math.abs( Math.cos( degToRad( angle2[3] / 2 ) ) ) * 250 });
+			$('.box05 .dot').css({'bottom': Math.abs( Math.sin( degToRad( angle[4] / 2 ) ) ) * 250 ,'left': Math.abs( Math.cos( degToRad( angle2[4] / 2 ) ) ) * 250 });
+			$('.box06 .dot').css({'bottom': Math.abs( Math.sin( degToRad( angle[5] / 2 ) ) ) * 250 ,'left': Math.abs( Math.cos( degToRad( angle2[5] / 2 ) ) ) * 250 });
+
+
+		})
+	</script>
+</body>
+</html>

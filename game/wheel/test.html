@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>돌려돌려돌림판 ver2.0</title>
+	<script src="./js/jquery-2.2.4.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Gamja+Flower" rel="stylesheet">
+	<style>
+		*{ margin: 0; padding: 0; box-sizing: border-box; }
+		ul,li{ list-style: none; }
+		body{ width: 100%; font-family: 'Gamja Flower', cursive; }
+
+
+		/* 컬러 셋팅 - whhel_btn */
+		.wheel_title { color: black !important; }
+		.wheel_btn { color: #fff !important; background: black !important; }
+
+		.wheel_wrap .wheel { border-color: black !important; }
+		.wheel_wrap .wheel ul > li > a { color: black !important; }
+		/*.wheel_wrap .wheel ul > li { background: green !important; }*/
+
+
+		/* 버전정보 */
+		.version { position: fixed; right: 10px; bottom: 10px; font-size: 13px; } 
+		.version:before{ content: "ver"; } 
+		
+
+		.wheel_title { margin-top: 5vh; font-size: 5vh; font-weight: bold; text-align: center; }
+
+		/* 돌림판 디자인 */
+		.wheel_wrap { position: relative; width: 60vh; height: 60vh; min-height: 200px; min-width: 200px; margin:0 auto; text-align: center;}
+		.wheel_wrap .arrow { z-index: 100; position: absolute; top: 8vh; left: calc(50% - 30px); width: 60px; height: 20px; transform: rotate(75deg) skewX(60deg) ; background-image: linear-gradient(153.5deg, transparent 59%, pink 60%); }
+
+
+
+
+
+		.wheel_wrap .wheel { width: 100%; height: 100%; margin: 50px auto 30px auto; border: 5px solid rgba(255, 192, 203, 0.2); border-radius: 50%; transform-origin: 50% 50%; transition: 3s; }
+		.wheel_wrap .wheel ul { position: relative; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; }
+		.wheel_wrap .wheel ul > li { position: absolute; width: 50%; height: 50%; transform-origin:100% 100%;  text-indent: 0; border: 1px dotted green; }
+		.wheel_wrap .wheel ul > li > a { position:absolute; width: 70%; min-width: 130px; line-height: 1; display: block; font-size: 3vh; transform-origin:50% 50%; transform: skew(-30deg) rotate( -60deg); text-decoration: none; color: pink; border:1px dotted red;}
+		
+		/*.wheel_wrap .wheel ul > li:nth-child(1){transform: rotate(0deg)  skew(30deg); background: rgba(255, 192, 203, 0.2);}
+		.wheel_wrap .wheel ul > li:nth-child(2){transform: rotate(60deg)  skew(30deg); background: rgba(255, 192, 203, 0.2);}
+		.wheel_wrap .wheel ul > li:nth-child(3){transform: rotate(120deg)  skew(30deg); background: rgba(255, 192, 203, 0.2); }
+		.wheel_wrap .wheel ul > li:nth-child(4){transform: rotate(180deg)  skew(30deg); background: rgba(255, 192, 203, 0.2);}
+		.wheel_wrap .wheel ul > li:nth-child(5){transform: rotate(240deg)  skew(30deg); background: rgba(255, 192, 203, 0.2); }
+		.wheel_wrap .wheel ul > li:nth-child(6){transform: rotate(300deg)  skew(30deg); background: rgba(255, 192, 203, 0.2);}*/
+		
+		/* 돌리기 버튼 디자인 */
+		.wheel_btn { z-index: 1000px; position: absolute; top: 50%; left: 50%; transform-origin: 50% 50%; transform: translate( -50%, -50%); } 
+		.wheel_btn { height: 20%; width: 20%; border: none; border-radius: 50%; font-size: 18px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
+
+
+		
+		/* 톨림판 인풋 디자인 */
+		.input_wrap {}
+		.input_wrap label { font-size: 15px; }
+		.input_wrap input { outline: none; width: 80%; height: 50px; min-width: 320px; border: 2px solid #f5f5f5; border-radius: 5px; border-color: #f4f4f4; box-shadow: none; }
+		.input_wrap input:focus { border: 2px solid #ffba00; background: rgba(255, 193, 0, 0.05 );}
+		.input_wrap .sel_menu { width: 50px; height: 50px; }
+
+
+
+	</style>
+</head>
+<body>
+	<div class='version'>2.0</div>
+	
+	<div class="recent_log">
+		
+	</div>		
+
+	<div id="">
+
+		<p class="wheel_title">wheel_title</p>
+		<div class="wheel_wrap">
+			<!-- <div class="arrow"></div> -->
+			<div class="wheel" data-rotate="0">
+				<ul>
+					<li><a href="javascript:void(0)">menu01</a></li>
+					<li><a href="javascript:void(0)">menu02</a></li>
+					<li><a href="javascript:void(0)">menu02</a></li>
+					<li><a href="javascript:void(0)">menu02</a></li>
+					<li><a href="javascript:void(0)">menu02</a></li>
+					<li><a href="javascript:void(0)">menu02</a></li>
+					<!-- <li><a href="javascript:void(0)">menu02</a></li> -->
+					<!-- <li><a href="javascript:void(0)">menu02</a></li> -->
+					<li><a href="javascript:void(0)">menu06</a></li>
+				</ul>
+			</div>
+
+			<button type="button" class="wheel_btn">start<i>!</i></button>
+		</div>
+	</div>
+
+
+	<div class="input_wrap">
+		<label for="input01">메뉴입력</label>
+		<input type="text" id="input01" placeholder="메뉴명 입력" value="" >
+		<button type="button" class="sel_menu" >등록 </button>
+	</div>
+
+	<script>
+		$(function(){
+
+
+			// 	버튼 클릭 시 이벤트
+			$(".wheel_btn").on("click", function(){
+				btnEffect($(this));				
+			})
+
+
+			menuShape();
+
+
+
+		})
+		
+
+		$('.sel_menu').on('click', function(){
+
+		})
+
+
+		function menuShape(){
+
+			// 메뉴항목 수에 따른 배열
+			var menuCont = $('.wheel ul > li'),
+				menuContTitle = $('.wheel ul > li > a'),
+				menuContLen = menuCont.length;
+
+			// 메뉴항목 1개 경우
+			if( menuContLen == 1 ){
+
+				menuCont.css({'width': '100%', 'height': '100%', 'transform': 'none'});
+				menuContTitle.css({ 'bottom': 0, 'right': 0, 'padding-top': '20%', 'width': '100%', 'height': '100%', 'transform': 'none'});
+
+			// 메뉴항목 2개 경우
+			}else if( menuContLen == 2 ){
+
+				menuCont.css({'width': '50%', 'height': '100%', 'transform': 'none'});
+				menuCont.eq(0).css({ 'left': 0 });
+				menuCont.eq(1).css({ 'left': '50%' });
+				menuCont.eq(0).find('a').css({'left': '50%', 'top': '50%', 'transform': 'translate( -50%, -50% ) rotate(-90deg)' });
+				menuCont.eq(1).find('a').css({'right': '50%', 'top': '50%', 'transform': 'translate( 50%, -50% ) rotate(90deg)' });
+
+			// 메뉴항목 3개 경우
+			}else if( menuContLen == 3 ){
+
+				menuCont.css({ 'top': '-50%', 'left': '50%', 'width': '100%', 'height': '100%', 'transform-origin': '0% 100%' });
+				menuCont.eq(0).css({'transform': 'skew(30deg)'});
+				menuCont.eq(1).css({'transform': 'rotate(120deg) skew(30deg)'});
+				menuCont.eq(2).css({'transform': 'rotate(240deg) skew(30deg)'});
+				menuContTitle.css({ 'top': '70%','left': '-5%', 'transform-origin': '50% 50%', 'transform': 'skew(-30deg) rotate(30deg)'});
+
+			// 메뉴항목 3개 이상
+			}else if( menuContLen > 3 ){
+
+			var circleR = ( $('.wheel_wrap').width() / 2 ) / 2;
+
+			var	lenAngle = 360 / menuContLen;
+				skewAngle = 90 - lenAngle;
+
+			var textLeft = Math.abs( Math.cos(lenAngle / 2) *  circleR ),
+				textBot = Math.abs( Math.sin(lenAngle / 2) *  circleR );
+
+				menuCont.each(function(i){
+					var _this = $(this);
+
+					_this.css({ 'transform': 'rotate('+ lenAngle * i +'deg) skew('+ skewAngle + 'deg)' });
+					menuContTitle.css({'transform-origin': '50% 50%', 'transform': 'translate( 0%, 0%) skew('+ ( -1 * skewAngle ) + 'deg) rotate('+ ( -1 * ( 180 - lenAngle ) / 2 ) +'deg)', 'bottom': textBot, 'left': textLeft });
+				})
+				
+					console.log( ( -1 * lenAngle ) );
+				// -1 * ( lenAngle / 2 )
+
+			}
+	
+		}
+		
+
+
+
+
+
+
+
+		function insertInput( value ){
+			var _this = value;
+
+		}
+
+
+
+
+
+
+
+		function btnEffect(target){			
+			var _this = target;
+			var _thisState = _this.hasClass("active");
+
+			if(_thisState){
+				return false;
+			}else{
+				_this.addClass("active");
+				ranNum(); //돌림판 회전수
+				rotateWheel(); //돌림판 회전 스크립트
+			}
+			var delClass = setTimeout(del,3000);
+		}
+
+		function ranNum(){
+			var ranNum =  parseInt( Math.random()*1000 ) + 3500 ;
+			var dataRotate =  parseInt( $(".wheel").attr("data-rotate") ) + ranNum;
+			$(".wheel").attr("data-rotate", dataRotate );
+		}
+
+		function rotateWheel(){
+			var totalDeg = parseInt( $(".wheel").attr("data-rotate") );
+			$(".wheel").css("transform", "rotate("+totalDeg+"deg)");
+			
+		}
+
+		function del(){
+			console.log("hi");
+			$(".go_btn").removeClass("active");
+		}
+
+	</script>
+</body>
+</html>
