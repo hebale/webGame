@@ -1,4 +1,2 @@
 @charset "utf-8";
-
-.title { position: fixed; top: 40px; left: 50%; font-size: 60px; font-weight: bold; transform: translate(-50%, -50%); text-align: center; color: #f5f5f5;}
-.test_bg { position: fixed; top: 50%; left:50%; width: 80%; height: 80%; border-radius: 40px; background: #eee; transform: translate(-50%, -50%); }
+html, body { padding: 0; margin: 0; }
